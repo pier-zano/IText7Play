@@ -118,6 +118,34 @@ public class BasicTests extends BaseTestReports {
 	}
 
 	@Test
+	public void helloWorldFonts() {
+		File fOut = getFileOutput("helloworldFonts.pdf");
+		final String REGULAR = "fonts/constan.ttf";
+		final String BOLD = "fonts/constanb.ttf";
+		try {
+			PdfWriter writer = new PdfWriter(fOut);
+			PdfDocument pdf = new PdfDocument(writer);
+			Document document = new Document(pdf);
+			
+			PdfFont font_reg = PdfFontFactory.createFont(getClass().getResource(REGULAR).toString(), true);
+			
+			Paragraph p = new Paragraph("Hello World con font constantia");
+			p.setFont(font_reg);
+			p.setFontSize(15);
+
+			Color green = new DeviceRgb(10, 220, 8);
+			p.setBackgroundColor(green);
+			p.setHeight(200);
+
+			document.add(p);
+			document.close();
+			openOutputWithReader(fOut);
+		} catch (Exception e) {
+			Assert.fail(e.toString());
+		}
+	}
+	
+	@Test
 	public void canvas() {
 		File fOut = getFileOutput("canvas.pdf");
 
